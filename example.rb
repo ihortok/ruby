@@ -13,15 +13,20 @@ end
 divide_word('hello')
 
 #task 3
-def check_if_greater(a)
+def check_if_greater(int)
   
-  if(a > 0 && a < 5) ? result = true : result = false
+  if(!int.is_a? Integer)
+    result = 'incorect number'
+  else
+    if(int > 0 && int < 5) ? result = true : result = false
+    end
   end
 
   return result
 
 end
 
+puts check_if_greater(4);
 puts check_if_greater(5);
 
 #task 4
@@ -50,7 +55,11 @@ puts day_part(45)
 #task 5
 def is_leap_year(year)
 
-  if(year % 400 === 0) || (year % 4 == 0 && year % 100 != 0) ? result = true : result = false
+  if(!year.is_a? Integer)
+    result = 'incorect number'
+  else
+    if(year % 400 === 0) || (year % 4 == 0 && year % 100 != 0) ? result = true : result = false
+    end
   end
   
   return result
@@ -58,8 +67,32 @@ def is_leap_year(year)
 end
 
 puts is_leap_year(2100)
-puts is_leap_year(2004)
+puts is_leap_year('2004')
 puts is_leap_year(2012)
 
 #task 5
+def is_equel_parts(num)
 
+  result = false;
+
+  if(!num.is_a? Integer || num.count != 6)
+    result = 'incorect number'
+  else
+    num_left_part = 0;
+    num_right_part = 0;
+
+    num.digits[0..2].each{|x| num_left_part += x }
+
+    num.digits[3..5].each{|x| num_right_part += x }
+
+    if(num_left_part == num_right_part)
+      result = true
+    end
+  end
+
+  return result
+
+end
+
+puts is_equel_parts(333333)
+puts is_equel_parts(332569)
