@@ -17,9 +17,7 @@ def check_if_greater(int)
   
   if(!int.is_a? Integer)
     result = 'incorect number'
-  else
-    if(int > 0 && int < 5) ? result = true : result = false
-    end
+  elsif(int > 0 && int < 5) ? result = true : result = false
   end
 
   return result
@@ -57,9 +55,7 @@ def is_leap_year(year)
 
   if(!year.is_a? Integer)
     result = 'incorect number'
-  else
-    if(year % 400 === 0) || (year % 4 == 0 && year % 100 != 0) ? result = true : result = false
-    end
+  elsif(year % 400 === 0) || (year % 4 == 0 && year % 100 != 0) ? result = true : result = false
   end
   
   return result
