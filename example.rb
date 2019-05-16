@@ -6,18 +6,16 @@ text_2 = 'World'
 puts text_1 + ' ' + text_2
 
 #task 2
+def divide_word(word)
+  word.each_char {|c| puts c}
+end
 
-var = 'hello'
-
-var.each_char {|c| puts c}
+divide_word('hello')
 
 #task 3
 def check_if_greater(a)
-
-  result = false;
   
-  if(a > 0 && a < 5)
-  	result = true
+  if(a > 0 && a < 5) ? result = true : result = false
   end
 
   return result
@@ -52,22 +50,16 @@ puts day_part(45)
 #task 5
 def is_leap_year(year)
 
-  result = false
-
-  if(year % 400 === 0)
-    result = true
-  elsif (year % 4 == 0 && year % 100 != 0)
-    result = true
+  if(year % 400 === 0) || (year % 4 == 0 && year % 100 != 0) ? result = true : result = false
   end
-
+  
   return result
 
 end
-
 
 puts is_leap_year(2100)
 puts is_leap_year(2004)
 puts is_leap_year(2012)
 
 #task 5
-#def is_equel_sum(num)
+
