@@ -48,3 +48,26 @@ end
 
 puts day_part(36)
 puts day_part(45)
+
+#task 5
+def is_leap_year(year)
+
+  result = false
+
+  if(year % 400 === 0)
+    result = true
+  elsif (year % 4 == 0 && year % 100 != 0)
+    result = true
+  end
+
+  return result
+
+end
+
+
+puts is_leap_year(2100)
+puts is_leap_year(2004)
+puts is_leap_year(2012)
+
+#task 5
+#def is_equel_sum(num)
