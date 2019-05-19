@@ -12,9 +12,7 @@ puts add_strings('hello', 'World')
 # display letters 'h', 'e' and 'o' if exists in a string
 
 def display_letters(srt)
-  unless(srt.is_a? String)
-  	return 'incorect number'
-  end
+  return 'incorect number' unless srt.is_a? String
   puts srt.split('').select { |e| e == 'h' || e == 'e' || e == 'o' }
 end
 
@@ -33,9 +31,7 @@ puts check_num(3)
 # define to which part of a day a minute belongs to
 
 def day_part(min)
-  unless(min.is_a? Integer)
-  	return 'incorect number'
-  end
+  return 'incorect number' unless min.is_a? Integer
   case min % 59
   when 0..14
     '1-st part'
@@ -64,9 +60,7 @@ puts is_leap_year(2100)
 # check if number with 6 digits sum of left 3 digits is equel to right 3 digits
 
 def has_equel_parts(num)
-  unless((num.is_a? Integer) || num.to_s.length == 6)
-    return 'incorect number'
-  end
+  return 'incorect number' unless (num.is_a? Integer) || num.to_s.length == 6
   left_part = num.digits[0..2].reduce { |sum , e| sum += e }
   right_part = num.digits[3..6].reduce { |sum , e| sum += e }
   left_part == right_part
@@ -81,11 +75,8 @@ puts has_equel_parts(123321)
 # If the string contains other characters than letters, treat the whole string as it would be empty.
 
 def ascii_sum(str)
+  return nil if((!str.is_a? String) || str.length == 0)
   ascii = 0
-  if((!str.is_a? String) || str.length == 0)
-    ascii = nil
-    return ascii
-  end
   str.each_char do |e|
   	if((e =~ /[[:alpha:]]/) != 0)
   	  ascii = nil
@@ -97,9 +88,7 @@ def ascii_sum(str)
 end
 
 def is_ascii_sum_equel(str1, str2)
-
   ascii_sum(str1) == ascii_sum(str2)
-
 end
 
 puts is_ascii_sum_equel('AD', 'BC')
