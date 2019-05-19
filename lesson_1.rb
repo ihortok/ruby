@@ -1,94 +1,81 @@
-#LESSON 1
-#task 1
-text_1 = 'Hello'
-text_2 = 'World'
+# LESSON 1
+# task 1
+# add 2 strings 'text1' and 'text2'
 
-puts text_1 + ' ' + text_2
-
-#task 2
-def divide_word(word)
-  word.each_char {|c| puts c}
+def add_strings(text1, text2)
+  text1.to_s + ' ' + text2.to_s
 end
 
-divide_word('hello')
+puts add_strings('hello', 'World')
 
-#task 3
-def check_if_greater(int)
-  
-  if(!int.is_a? Integer)
-    result = 'incorect number'
-  elsif(int > 0 && int < 5) ? result = true : result = false
+# task 2
+# display letters 'h', 'e' and 'o' if exists in a string
+
+def display_letters(srt)
+  if(!srt.is_a? String)
+  	return 'incorect number'
   end
-
-  return result
-
+  puts srt.split('').select { |e| e == 'h' || e == 'e' || e == 'o' }
 end
 
-puts check_if_greater(4);
-puts check_if_greater(5);
+display_letters('hello')
 
-#task 4
+# task 3
+# display true if num > 0 and num < 5
+
+def check_num(num)
+  (num.is_a? Integer) && num.positive? && num < 5
+end
+
+puts check_num(3)
+
+# task 4
+# define to which part of a day a minute belongs to
+
 def day_part(min)
-
-  result = ''
-
-  case min
-  when 0..14
-    result = '1-st part'
-  when 15..29
-    result = '2-nd part'
-  when 30..44
-    result = '3-st part'
-  when 45..59
-  	result = '4-st part'
+  if(!min.is_a? Integer)
+  	return 'incorect number'
   end
-
-  return result
-
+  case min % 59
+  when 0..14
+    '1-st part'
+  when 15..29
+    '2-nd part'
+  when 30..44
+    '3-st part'
+  when 45..59
+  	'4-st part'
+  end
 end
 
-puts day_part(36)
-puts day_part(45)
+puts day_part(15)
 
-#task 5
+# task 5
+# check if a year is a leap year
+
 def is_leap_year(year)
-
-  if(!year.is_a? Integer)
-    result = 'incorect number'
-  elsif(year % 400 === 0) || (year % 4 == 0 && year % 100 != 0) ? result = true : result = false
-  end
-  
-  return result
-
+  return 'incorect year' if (!year.is_a? Integer)
+  year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)
 end
 
 puts is_leap_year(2100)
-puts is_leap_year('2004')
-puts is_leap_year(2012)
 
-#task 5
-def is_equel_parts(num)
+# task 5
+# check if number with 6 digits sum of left 3 digits is equel to right 3 digits
 
-  result = false;
-
-  if(!num.is_a? Integer || num.count != 6)
-    result = 'incorect number'
-  else
-    num_left_part = 0;
-    num_right_part = 0;
-
-    num.digits[0..2].each{|x| num_left_part += x }
-
-    num.digits[3..5].each{|x| num_right_part += x }
-
-    if(num_left_part == num_right_part)
-      result = true
-    end
+def has_equel_parts(num)
+  if((!num.is_a? Integer) || num.to_s.length != 6)
+    return 'incorect number'
   end
-
-  return result
-
+  left_part = num.digits[0..2].reduce { |sum,e| sum += e }
+  right_part = num.digits[3..6].reduce { |sum,e| sum += e }
+  left_part == right_part
 end
 
-puts is_equel_parts(333333)
-puts is_equel_parts(332569)
+puts has_equel_parts(123321)
+
+# BONUS TASK
+# Compare two strings by comparing the sum of their values (ASCII character code).
+# For comparing treat all letters as UpperCase.
+# Null-Strings should be treated as if they are empty strings.
+# If the string contains other characters than letters, treat the whole string as it would be empty.
