@@ -79,3 +79,32 @@ puts has_equel_parts(123321)
 # For comparing treat all letters as UpperCase.
 # Null-Strings should be treated as if they are empty strings.
 # If the string contains other characters than letters, treat the whole string as it would be empty.
+
+def ascii_sum(str)
+  ascii = 0
+  if((!str.is_a? String) || str.length == 0)
+    ascii = nil
+    return ascii
+  end
+  str.each_char do |e|
+  	if((e =~ /[[:alpha:]]/) != 0)
+  	  ascii = nil
+  	  break
+  	end
+  	ascii += e.upcase.ord
+  end
+  ascii
+end
+
+def is_ascii_sum_equel(str1, str2)
+
+  ascii_sum(str1) == ascii_sum(str2)
+
+end
+
+puts is_ascii_sum_equel('AD', 'BC')
+puts is_ascii_sum_equel('AD', 'DD')
+puts is_ascii_sum_equel('FG', 'gf')
+puts is_ascii_sum_equel('zz1', '')
+puts is_ascii_sum_equel('ZzZz', 'ffPFF')
+puts is_ascii_sum_equel('Zz2z', 'ffPF_F')
