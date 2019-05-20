@@ -50,3 +50,51 @@ end
 ArrayProccesorObj = ArrayProccesor.new
 puts ArrayProccesorObj.includes_character?([123, 434, 653_735, 34, 65], 3)
 puts ArrayProccesorObj.count_characters([123, 3434, 653_735, 34, 65], 3)
+
+# BONUS TASKS
+# bonus task 1
+# My friend wants a new band name for her band.
+# She likes bands that use the formula:
+# 'The' + a noun with first letter capitalized. However, when
+# a noun STARTS and ENDS with the same letter, she likes to repeat
+# the noun twice and connect them together with the first and last letter,
+# combined into one word like so (WITHOUT a 'The' in front):
+# dolphin -> The Dolphin
+# alaska -> Alaskalaska
+# europe -> Europeurope
+
+def band_name(name)
+  return name.to_s.capitalize << name.to_s[1..-1] if name[0] == name[-1]
+
+  article = 'The'
+  article << ' ' << name.to_s.capitalize
+end
+
+puts band_name('alaska')
+puts band_name('dolphin')
+
+# bonus task 2
+# We have chars mapping: A => T, C => G.
+# You need to create a converter for strings with the results:
+# "ATTGC" -> returns "TAACG", "GTAT" -> returns "CATA"
+
+def chars_mapping(str, map = {})
+  return "incorrect map" unless map.is_a? Hash
+
+  str_to_array = str.to_s.upcase.split('')
+  map.keys.each do |key|
+    str_to_array.each_with_index do |value, index|
+      case value
+      when key
+        str_to_array[index] = map[key].upcase
+      when map[key]
+        str_to_array[index] = key.upcase
+      end
+    end
+  end
+  str_to_array.join('')
+end
+
+puts chars_mapping("attgc", {"A" => "T", "C" => "G"})
+puts chars_mapping("gTAT", {"A" => "T", "C" => "G"})
+puts chars_mapping("attgc", "sd")
