@@ -59,20 +59,21 @@ def leap_year?(year)
   (year % 400).zero? || ((year % 400).zero? && year % 100 != 0)
 end
 
-puts is_leap_year(2100)
+puts leap_year?(2100)
 
 # task 5
 # check if number with 6 digits sum of left 3 digits is equel to right 3 digits
 
 def equel_parts?(num)
-  return 'incorect number' unless (num.is_a? Integer) || num.to_s.length == 6
+  return 'incorect number' unless (num.is_a? Integer)
 
   left_part = num.digits[0..2].reduce { |sum, e| sum + e }
   right_part = num.digits[3..6].reduce { |sum, e| sum + e }
   left_part == right_part
 end
 
-puts equel_parts?(123_321)
+puts equel_parts?(123_32)
+
 
 # BONUS TASK
 # Compare two strings by comparing the sum
