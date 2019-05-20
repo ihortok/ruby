@@ -39,7 +39,6 @@ def find_extreme_values(array = [])
     values_middle << array_filtered[arraay_middle_el + i]
     values_greatest << array_filtered[-1 - i]
   end
-  puts array_filtered
   puts 'the smallest values: ' + values_smallest.join(', ')
   puts 'the middle values: ' + values_middle.join(', ')
   puts 'the greatest values: ' + values_greatest.join(', ')
