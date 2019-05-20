@@ -14,7 +14,7 @@ puts add_strings('hello', 'World')
 # display letters 'h', 'e' and 'o' if exists in a string
 
 def display_letters(srt)
-  return 'incorect number' unless srt.is_a? String
+  return 'incorect value' unless srt.is_a? String
 
   srt.split('').select { |e| e == 'h' || e == 'e' || e == 'o' }
 end
