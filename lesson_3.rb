@@ -29,7 +29,7 @@ def find_extreme_values(array = [])
 
   return 'array length should be more or equel to 9' if array.length < 9
 
-  array_filtered = array.sort!.uniq!
+  array_filtered = array.sort.uniq
   arraay_middle_el = (array_filtered.length / 2) - 1
   values_smallest = []
   values_middle = []
@@ -45,3 +45,33 @@ def find_extreme_values(array = [])
 end
 
 find_extreme_values([33, 15, 17, 20, 23, 23, 28, 40, 21, 19, 31, 18, 30, 31, 28, 23, 19, 28, 27, 30, 39, 17, 17, 20, 19, 23, 28, 30, 34, 28])
+
+# BONUS TASKS
+# bonus task 1
+# find an index of an array element where
+# the sum of the integers to the left of N
+# is equal to the sum of the integers to the right of N.
+# If there is no index that would make this happen, return -1.
+
+# bonus task 2
+# find an unique value of array
+
+def array_unique(array = [])
+  return 'incorrect array' unless array.is_a? Array
+
+  uniq_values = []
+  array.each do |el|
+    unique_counter = 0
+    array.each do |e|
+      next if el != e
+
+      unique_counter += 1
+    end
+    if unique_counter == 1
+      uniq_values << el
+    end
+  end
+  uniq_values
+end
+
+puts array_unique([0.5, 1, 1, 3, 3, 1, 2, 88])
