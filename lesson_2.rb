@@ -19,13 +19,10 @@ puts remove_lower_underline('var_test_text_aaBB')
 # reverse a string saving an order of words
 
 def string_reverse(str)
-  return str.to_s.reverse! unless str.to_s.include? " "
-  
-  reversed_str = ''
+  return str.to_s.reverse! unless str.to_s.include? ' '
+
   str_to_array = str.to_s.split(' ')
-  str_to_array.each do |e|
-    e = e.reverse!
-  end
+  str_to_array.each(&:reverse!)
   str_to_array.join(' ')
 end
 
