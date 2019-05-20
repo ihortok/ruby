@@ -65,7 +65,7 @@ puts leap_year?(2100)
 # check if number with 6 digits sum of left 3 digits is equel to right 3 digits
 
 def equel_parts?(num)
-  return 'incorect number' unless (num.is_a? Integer)
+  return 'incorect number' unless num.is_a? Integer
 
   left_part = num.digits[0..2].reduce { |sum, e| sum + e }
   right_part = num.digits[3..6].reduce { |sum, e| sum + e }
@@ -73,7 +73,6 @@ def equel_parts?(num)
 end
 
 puts equel_parts?(123_32)
-
 
 # BONUS TASK
 # Compare two strings by comparing the sum

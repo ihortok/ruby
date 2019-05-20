@@ -21,11 +21,10 @@ end
 puts num_repeater([1, 2, 'smth', 3, 4, 5])
 puts num_repeater(1324)
 
-
 # task 2
 # find 3 smallest, 3 middle and 3 greatest of an array of numbers
 
-def find_extreme_and_middle_values(array = [])
+def find_extreme_values(array = [])
   return 'array should include only integers' unless array.all?(Numeric)
 
   return 'array length should be more or equel to 9' if array.length < 9
@@ -46,4 +45,4 @@ def find_extreme_and_middle_values(array = [])
   puts 'the greatest values: ' + values_greatest.join(', ')
 end
 
-find_extreme_and_middle_values([33, 15, 17, 20, 23, 23, 28, 40, 21, 19, 31, 18, 30, 31, 28, 23, 19, 28, 27, 30, 39, 17, 17, 20, 19, 23, 28, 30, 34, 28])
+find_extreme_values([33, 15, 17, 20, 23, 23, 28, 40, 21, 19, 31, 18, 30, 31, 28, 23, 19, 28, 27, 30, 39, 17, 17, 20, 19, 23, 28, 30, 34, 28])
