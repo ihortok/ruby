@@ -76,25 +76,23 @@ puts band_name('dolphin')
 # bonus task 2
 # We have chars mapping: A => T, C => G.
 # You need to create a converter for strings with the results:
-# "ATTGC" -> returns "TAACG", "GTAT" -> returns "CATA"
+# 'ATTGC' -> returns 'TAACG', 'GTAT' -> returns 'CATA'
 
 def chars_mapping(str, map = {})
-  return "incorrect map" unless map.is_a? Hash
+  return 'incorrect map' unless map.is_a? Hash
 
   str_to_array = str.to_s.upcase.split('')
   map.keys.each do |key|
     str_to_array.each_with_index do |value, index|
       case value
-      when key
-        str_to_array[index] = map[key].upcase
-      when map[key]
-        str_to_array[index] = key.upcase
+      when key then str_to_array[index] = map[key].upcase
+      when map[key] then str_to_array[index] = key.upcase
       end
     end
   end
   str_to_array.join('')
 end
 
-puts chars_mapping("attgc", {"A" => "T", "C" => "G"})
-puts chars_mapping("gTAT", {"A" => "T", "C" => "G"})
-puts chars_mapping("attgc", "sd")
+puts chars_mapping('attgc', 'A' => 'T', 'C' => 'G')
+puts chars_mapping('gTAT', 'A' => 'T', 'C' => 'G')
+puts chars_mapping('attgc', 'sd')
