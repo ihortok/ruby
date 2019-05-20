@@ -54,8 +54,8 @@ puts ArrayProccesorObj.count_characters([123, 3434, 653_735, 34, 65], 3)
 # BONUS TASKS
 # bonus task 1
 # modify a string in the next way:
-# 'The' + a string with first letter capitalized. However, when
-# a string STARTS and ENDS with the same letter:
+# 'The' + a string with first letter capitalized.
+# However, when a string STARTS and ENDS with the same letter:
 # repeat a string twice and connect them together
 # with the first and last letter,
 # combined into one word like so (WITHOUT a 'The' in front):
