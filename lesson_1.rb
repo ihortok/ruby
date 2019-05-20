@@ -34,7 +34,7 @@ puts check_num(3)
 # define to which part of a day a minute belongs to
 
 def day_part(min)
-  return 'incorect number' unless min.is_a? Integer
+  return 'incorect minute' unless min.is_a? Integer
 
   case min % 59
   when 0..14

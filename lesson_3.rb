@@ -53,6 +53,20 @@ find_extreme_values([33, 15, 17, 20, 23, 23, 28, 40, 21, 19, 31, 18, 30, 31, 28,
 # is equal to the sum of the integers to the right of N.
 # If there is no index that would make this happen, return -1.
 
+def array_index_equel_sum_of_parts(array = [])
+  return 'incorrect array' unless array.is_a? Array
+
+  array.each_index do |i|
+    left_part = array[0..i].reduce { |sum, e| sum + e }
+    right_part = array[i..array.length - 1].reduce { |sum, e| sum + e }
+    return i if left_part == right_part
+  end
+  -1
+end
+
+puts array_index_equel_sum_of_parts([1, 2, 3, 4, 3, 2, 1])
+puts array_index_equel_sum_of_parts([1, 2, 3, 9, 7, 11])
+
 # bonus task 2
 # find an unique value of array
 
@@ -67,9 +81,7 @@ def array_unique(array = [])
 
       unique_counter += 1
     end
-    if unique_counter == 1
-      uniq_values << el
-    end
+    uniq_values << el if unique_counter == 1
   end
   uniq_values
 end
