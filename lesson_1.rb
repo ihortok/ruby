@@ -14,7 +14,7 @@ puts add_strings('hello', 'World')
 # display letters 'h', 'e' and 'o' if exists in a string
 
 def display_letters(srt)
-  return 'incorect value' unless srt.is_a? String
+  raise 'incorect string' unless srt.is_a? String
 
   srt.split('').select { |e| e == 'h' || e == 'e' || e == 'o' }
 end
@@ -34,7 +34,7 @@ puts check_num(3)
 # define to which part of a day a minute belongs to
 
 def day_part(min)
-  return 'incorect minute' unless min.is_a? Integer
+  raise 'incorect minute' unless min.is_a? Integer
 
   case min % 59
   when 0..14
@@ -54,9 +54,9 @@ puts day_part(15)
 # check if a year is a leap year
 
 def leap_year?(year)
-  return 'incorect year' unless year.is_a? Integer
+  raise 'incorect year' unless year.is_a? Integer
 
-  (year % 400).zero? || ((year % 400).zero? && year % 100 != 0)
+  (year % 400).zero? || ((year % 4).zero? && year % 100 != 0)
 end
 
 puts leap_year?(2100)
@@ -65,7 +65,7 @@ puts leap_year?(2100)
 # check if number with 6 digits sum of left 3 digits is equel to right 3 digits
 
 def equel_parts?(num)
-  return 'incorect number' unless num.is_a? Integer
+  raise 'incorect number' unless num.is_a? Integer
 
   left_part = num.digits[0..2].reduce { |sum, e| sum + e }
   right_part = num.digits[3..6].reduce { |sum, e| sum + e }

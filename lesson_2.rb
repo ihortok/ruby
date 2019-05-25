@@ -3,7 +3,7 @@
 # turn string like 'var_test_text' into 'varTestText'
 
 def remove_lower_underline(str)
-  return 'string is empty' if str.empty?
+  raise 'string is empty' if str.empty?
 
   str_to_array = str.to_s.downcase.split('_')
   srt_camel_case = str_to_array[0]
@@ -35,13 +35,13 @@ puts string_reverse('ячс asd hJk')
 # class which methods work with array
 class ArrayProccesor
   def includes_character?(array, char)
-    return 'wrong parameters' unless array.is_a? Array
+    raise 'wrong parameters' unless array.is_a? Array
 
     array.select { |e| e.to_s.match(/#{char}/) }
   end
 
   def count_characters(array, char)
-    return 'wrong parameters' unless array.is_a? Array
+    raise 'wrong parameters' unless array.is_a? Array
 
     array.to_s.count(char.to_s)
   end
@@ -79,7 +79,7 @@ puts band_name('dolphin')
 # 'ATTGC' -> returns 'TAACG', 'GTAT' -> returns 'CATA'
 
 def chars_mapping(str, map = {})
-  return 'incorrect map' unless map.is_a? Hash
+  raise 'incorrect map' unless map.is_a? Hash
 
   str_to_array = str.to_s.upcase.split('')
   map.keys.each do |key|
@@ -95,4 +95,4 @@ end
 
 puts chars_mapping('attgc', 'A' => 'T', 'C' => 'G')
 puts chars_mapping('gTAT', 'A' => 'T', 'C' => 'G')
-puts chars_mapping('attgc', 'sd')
+# puts chars_mapping('attgc', 'sd')
