@@ -5,7 +5,7 @@
 # repeap an array element (number) as much time as this number is
 
 def num_repeater(array = [])
-  return 'incorrect array' unless array.is_a? Array
+  raise 'incorrect array' unless array.is_a? Array
 
   array_with_repeated_num = []
   array.each do |e|
@@ -18,6 +18,7 @@ def num_repeater(array = [])
   array_with_repeated_num
 end
 
+puts num_repeater('asad')
 puts num_repeater([1, 2, 'smth', 3, 4, 5])
 puts num_repeater(1324)
 
@@ -25,9 +26,9 @@ puts num_repeater(1324)
 # find 3 smallest, 3 middle and 3 greatest of an array of numbers
 
 def find_extreme_values(array = [])
-  return 'array should include only integers' unless array.all?(Numeric)
+  raise 'array should include only integers' unless array.all?(Numeric)
 
-  return 'array length should be more or equel to 9' if array.length < 9
+  raise 'array length should be more or equel to 9' if array.length < 9
 
   array_filtered = array.sort.uniq
   arraay_middle_el = (array_filtered.length / 2) - 1
@@ -54,7 +55,7 @@ find_extreme_values([33, 15, 17, 20, 23, 23, 28, 40, 21, 19, 31, 18, 30, 31, 28,
 # If there is no index that would make this happen, return -1.
 
 def array_index_equel_sum_of_parts(array = [])
-  return 'incorrect array' unless array.is_a? Array
+  raise 'incorrect array' unless array.is_a? Array
 
   array.each_index do |i|
     left_part = array[0..i].reduce { |sum, e| sum + e }
@@ -71,7 +72,7 @@ puts array_index_equel_sum_of_parts([1, 2, 3, 9, 7, 11])
 # find an unique value of array
 
 def array_unique(array = [])
-  return 'incorrect array' unless array.is_a? Array
+  raise 'incorrect array' unless array.is_a? Array
 
   uniq_values = []
   array.each do |el|
