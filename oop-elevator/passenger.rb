@@ -1,11 +1,7 @@
 class Passenger
-  ef initialize(weight)
+  attr_accessor :weight
+
+  def initialize(weight)
     @weight = weight
-  end
-
-  privat
-
-  def get_weight
-    weight
   end
 end
