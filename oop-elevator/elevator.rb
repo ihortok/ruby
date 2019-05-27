@@ -66,12 +66,22 @@ class Elevator
   end
 
   def set_direction()
-    if @routes[:to][0] > @floar
-      @direction = 'up'
-      @floar += 1
+  	if @routes[:from].length > 0
+      if @routes[:from][0] > @floar
+        @direction = 'up'
+        @floar += 1
+      else
+        @direction = 'down'
+        @floar -= 1
+      end
     else
-      @direction = 'down'
-      @floar -= 1
+      if @routes[:to][0] > @floar
+        @direction = 'up'
+        @floar += 1
+      else
+        @direction = 'down'
+        @floar -= 1
+      end
     end
   end
 
