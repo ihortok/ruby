@@ -74,42 +74,37 @@ class Elevator
         @direction = 'down'
         @floar -= 1
       end
-    else
+    elsif @routes[:to].length > 0
       if @routes[:to][0] > @floar
-        @direction = 'up'
+        @direction = 'elevator goes up'
         @floar += 1
       else
-        @direction = 'down'
+        @direction = 'elevator goes down'
         @floar -= 1
       end
+    else
+        @direction = "elevator's jorney ends"
     end
   end
 
   def move()
   	@routes[:from].sort!
   	@routes[:to].sort!
-    #while @passengers.length > 0 || @passengers_on_board.length > 0
     while @routes[:to].length > 0 || @routes[:from].length > 0
-    #while @routes[:to].length > 0 #|| @passengers_on_board.length > 0
-      #@log << @routes[:to].join(', ')
       @log << "elevator is at the #{floar}-st floar"
-      # @passengers_on_board.each { |e| @log << e.to }
       if @routes[:from].include?(@floar) || @routes[:to].include?(@floar)
         self.free_passenger()
         self.enter_passenger()
-        if @direction == 'up'
-          @floar += 1
-        else
-          @floar -= 1
-        end
+        # if @direction == 'up'
+        #   @floar += 1
+        # else
+        #   @floar -= 1
+        # end
+        self.set_direction()
       else
         self.set_direction()
       end
-      if @routes[:from].length.zero? && @routes[:to].length.zero?
-      	@log << "elevator's jorney ends"
-      	break
-      end
-      @log << "elevator goes #{direction}"
+      @log << @direction
     end
   end
 end
