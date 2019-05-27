@@ -26,8 +26,8 @@ class Elevator
 
   def add_passenger(from, to, weight)
     @passengers << Passenger.new(from, to, weight);
-    @routes[:from] << from unless @routes[:from].include?(from)
-    @routes[:to] << to unless @routes[:to].include?(to)
+    @routes[:from] << from #unless @routes[:from].include?(from)
+    #@routes[:to] << to #unless @routes[:to].include?(to)
   end
 
   def enter_passenger()
@@ -39,12 +39,13 @@ class Elevator
        	@passengers_on_board << @passengers[i]
         @total_weight += @passengers[i].weight
         indexes << @passengers[i]
+        @routes[:to] << @passengers[i].to
       end
     end
     unless counter.zero?
       indexes.each { |i| @passengers.delete(i) }
       @routes[:from].delete(@floar)
-      @log << "#{counter} passengers entered the elevator"
+      @log << "#{counter} passengers entered the elevator" 
     end
   end
 
@@ -86,8 +87,12 @@ class Elevator
   end
 
   def move()
-    # while @passengers.length > 0 || @passengers_on_board.length > 0
-    while @routes[:from].length > 0 || @routes[:to].length > 0
+  	@routes[:from].sort!
+  	@routes[:to].sort!
+    #while @passengers.length > 0 || @passengers_on_board.length > 0
+    while @routes[:to].length > 0 || @routes[:from].length > 0
+    #while @routes[:to].length > 0 #|| @passengers_on_board.length > 0
+      @log << @routes[:to].join(', ')
       @log << "elevator is at the #{floar}-st floar"
       # @passengers_on_board.each { |e| @log << e.to }
       if @routes[:from].include?(@floar) || @routes[:to].include?(@floar)
