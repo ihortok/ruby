@@ -27,18 +27,18 @@ class Elevator
 
   def enter_passenger()
     counter = 0
-    indexes = []
-    @passengers.each_index do |i|
-      if @passengers[i].from == @floar
+    passenger_to_remove = []
+    @passengers.each do |passenger|
+      if passenger.from == @floar
         counter += 1
-        @passengers_on_board << @passengers[i]
-        @total_weight += @passengers[i].weight
-        indexes << @passengers[i]
-        @routes[:to] << @passengers[i].to unless @routes[:to].include?(@passengers[i].to)
+        @passengers_on_board << passenger
+        @total_weight += passenger.weight
+        passenger_to_remove << passenger
+        @routes[:to] << passenger.to unless @routes[:to].include?(passenger.to)
       end
     end
     unless counter.zero?
-      indexes.each { |i| @passengers.delete(i) }
+      passenger_to_remove.each { |passenger| @passengers.delete(passenger) }
       @routes[:from].delete(@floar)
       @log << "#{counter} passengers entered the elevator" 
     end
@@ -46,16 +46,16 @@ class Elevator
 
   def free_passenger()
     counter = 0
-    indexes = []
-    @passengers_on_board.each_index do |i|
-      if @passengers_on_board[i].to == @floar
+    passenger_to_remove = []
+    @passengers_on_board.each do |passenger|
+      if passenger.to == @floar
         counter += 1
-        @total_weight -= @passengers_on_board[i].weight
-        indexes << @passengers_on_board[i]
+        @total_weight -= passenger.weight
+        passenger_to_remove << passenger
       end
     end
     unless counter.zero?
-      indexes.each { |i| @passengers_on_board.delete(i) }
+      passenger_to_remove.each { |passenger| @passengers_on_board.delete(passenger) }
       @routes[:to].delete(@floar)
       @log << "#{counter} passengers left the elevator"
     end
@@ -88,9 +88,11 @@ class Elevator
   	@routes[:to].sort!
     while @routes[:to].length > 0 || @routes[:from].length > 0
       @log << "elevator is at the #{floar}-st floar"
-      if @routes[:from].include?(@floar) || @routes[:to].include?(@floar)
-        self.free_passenger()
+      if @routes[:from].include?(@floar)
         self.enter_passenger()
+        self.set_direction()
+      elsif @routes[:to].include?(@floar)
+      	self.free_passenger()
         self.set_direction()
       else
         self.set_direction()
