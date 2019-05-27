@@ -68,8 +68,10 @@ class Elevator
   def set_direction()
     if @routes[:to][0] > @floar
       @direction = 'up'
+      @floar += 1
     else
       @direction = 'down'
+      @floar -= 1
     end
   end
 
@@ -86,12 +88,8 @@ class Elevator
         else
           @floar -= 1
         end
-      elsif @floar < @routes[:to][0]
-        @direction = 'up' unless @direction == 'up'
-        @floar += 1
-      elsif @floar > @routes[:to][0]
-        @direction = 'down' unless @direction == 'down'
-        @floar -= 1
+      else
+        self.set_direction()
       end
       @log << "elevator goes #{direction}"
     end
