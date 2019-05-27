@@ -85,20 +85,19 @@ class Elevator
   	@routes[:from].sort!
   	@routes[:to].sort!
   	@engines[:engine1].turn_on()
-  	@log << "Elevator: floar - #{@floar} [1-st engine turned on]" if @engines[:engine1].enable == true
+  	self.set_direction()
+  	@log << "Elevator: floar - #{@floar} [1-st engine turned on] direction #{@direction}" if @engines[:engine1].enable == true
     while @routes[:to].length > 0 || @routes[:from].length > 0
-      @log << "Elevator: floar - #{@floar} [door open]"
-      if @routes[:from].include?(@floar)
-        self.enter_passenger()
-      elsif @routes[:to].include?(@floar)
-      	self.free_passenger()
-      end
-      self.set_direction()
-      @log << "Elevator: floar - #{@floar} [direction - #{@direction}"
-      if @direction == "UP"
-      	@floar += 1
-      else
-        @floar -= 1
+      if @routes[:from].include?(@floar) || @routes[:to].include?(@floar)
+        @log << "Elevator: floar - #{@floar} [door open]"
+        if @routes[:from].include?(@floar)
+          self.enter_passenger()
+        end
+        if @routes[:to].include?(@floar)
+          self.free_passenger()
+        end
+        self.set_direction()
+        @log << "Elevator: floar - #{@floar} [door close] #{@total_weight} kg, direction #{@direction}"
       end
       if @total_weight >= 300 && @engines[:engine2].enable != true
         @engines[:engine2].turn_on()
@@ -107,36 +106,26 @@ class Elevator
       	@engines[:engine2].turn_off()
         @log << "Elevator: floar - #{@floar} [2-nd engine turned off]"
       end
+      if @direction == "UP"
+      	@floar += 1
+      elsif @direction == "DOWN"
+        @floar -= 1
+      else
+      	@log << "Elevator: floar - #{@floar} [1-nd engine turned off]"
+      end
     end
   end
 end
 
-elevator = Elevator.new(1)
+elevator = Elevator.new(10)
 
-elevator.add_passenger(9, 5, 60)
-elevator.add_passenger(11, 5, 58)
+elevator.add_passenger(3, 12, 85)
+elevator.add_passenger(11, 5, 93)
 elevator.add_passenger(2, 5, 76)
 elevator.add_passenger(4, 9, 90)
-elevator.add_passenger(4, 9, 112)
-elevator.add_passenger(6, 15, 92)
-elevator.add_passenger(6, 15, 67)
-elevator.add_passenger(2, 19, 55)
-elevator.add_passenger(3, 12, 98)
-elevator.add_passenger(1, 3, 52)
-
-
-#puts elevator.routes
+elevator.add_passenger(7, 2, 112)
+elevator.add_passenger(3, 10, 92)
 
 elevator.start
 
 puts elevator.log
-
-# puts elevator.routes
-
-# puts elevator.floar
-# puts elevator.passengers[0].weight
-# puts elevator.passengers.length
-# puts elevator.total_weight
-# elevator.free_passenger
-# puts elevator.passengers.length
-# puts elevator.total_weight
