@@ -1,9 +1,5 @@
 load 'passenger.rb'
 
-module NewPassenger
-  
-end
-
 class Elevator
   attr_accessor :floar
   attr_accessor :passengers
@@ -68,18 +64,18 @@ class Elevator
   def set_direction()
   	if @routes[:from].length > 0
       if @routes[:from][0] > @floar
-        @direction = 'up'
+        @direction = "elevator goes up"
         @floar += 1
       else
-        @direction = 'down'
+        @direction = "elevator goes down"
         @floar -= 1
       end
     elsif @routes[:to].length > 0
       if @routes[:to][0] > @floar
-        @direction = 'elevator goes up'
+        @direction = "elevator goes up"
         @floar += 1
       else
-        @direction = 'elevator goes down'
+        @direction = "elevator goes down"
         @floar -= 1
       end
     else
@@ -95,11 +91,6 @@ class Elevator
       if @routes[:from].include?(@floar) || @routes[:to].include?(@floar)
         self.free_passenger()
         self.enter_passenger()
-        # if @direction == 'up'
-        #   @floar += 1
-        # else
-        #   @floar -= 1
-        # end
         self.set_direction()
       else
         self.set_direction()
@@ -109,7 +100,7 @@ class Elevator
   end
 end
 
-elevator = Elevator.new(7)
+elevator = Elevator.new(1)
 
 elevator.add_passenger(9, 5, 23)
 elevator.add_passenger(11, 5, 23)
@@ -120,6 +111,8 @@ elevator.add_passenger(6, 15, 43)
 elevator.add_passenger(6, 15, 43)
 elevator.add_passenger(2, 19, 43)
 elevator.add_passenger(3, 12, 43)
+elevator.add_passenger(1, 1, 43)
+
 
 #puts elevator.routes
 
