@@ -1,4 +1,6 @@
 load 'passenger.rb'
+load 'engine_one_kwt.rb'
+load 'engine_two_kwt.rb'
 
 class Elevator
   attr_accessor :floar
@@ -14,10 +16,10 @@ class Elevator
     @floar = floar
     @passengers = []
     @passengers_on_board = []
-    @engines = []
+    @engines = { engine1: EngineOneKwt.new, engine2: EngineTwoKwt.new}
     @routes = {from: [], to: []}
-    @log = []
     @total_weight = 0
+    @log = []
   end
 
   def add_passenger(from, to, weight)
@@ -40,7 +42,7 @@ class Elevator
     unless counter.zero?
       passenger_to_remove.each { |passenger| @passengers.delete(passenger) }
       @routes[:from].delete(@floar)
-      @log << "#{counter} passengers entered the elevator" 
+      @log << "Elevator: floar - #{@floar} [add #{counter} passengers]" 
     end
   end
 
@@ -57,68 +59,75 @@ class Elevator
     unless counter.zero?
       passenger_to_remove.each { |passenger| @passengers_on_board.delete(passenger) }
       @routes[:to].delete(@floar)
-      @log << "#{counter} passengers left the elevator"
+      @log << "Elevator: floar - #{@floar} [free #{counter} passengers]"
     end
   end
 
   def set_direction()
   	if @routes[:from].length > 0
       if @routes[:from][0] > @floar
-        @direction = "elevator goes up"
-        @floar += 1
+        @direction = "UP"
       else
-        @direction = "elevator goes down"
-        @floar -= 1
+        @direction = "DOWN"
       end
     elsif @routes[:to].length > 0
       if @routes[:to][0] > @floar
-        @direction = "elevator goes up"
-        @floar += 1
+        @direction = "UP"
       else
-        @direction = "elevator goes down"
-        @floar -= 1
+        @direction = "DOWN"
       end
     else
-        @direction = "elevator's jorney ends"
+      @direction = "JORNEY ENDS"
     end
   end
 
-  def move()
+  def start()
   	@routes[:from].sort!
   	@routes[:to].sort!
+  	@engines[:engine1].turn_on()
+  	@log << "Elevator: floar - #{@floar} [1-st engine turned on]" if @engines[:engine1].enable == true
     while @routes[:to].length > 0 || @routes[:from].length > 0
-      @log << "elevator is at the #{floar}-st floar"
+      @log << "Elevator: floar - #{@floar} [door open]"
       if @routes[:from].include?(@floar)
         self.enter_passenger()
-        self.set_direction()
       elsif @routes[:to].include?(@floar)
       	self.free_passenger()
-        self.set_direction()
-      else
-        self.set_direction()
       end
-      @log << @direction
+      self.set_direction()
+      @log << "Elevator: floar - #{@floar} [direction - #{@direction}"
+      if @direction == "UP"
+      	@floar += 1
+      else
+        @floar -= 1
+      end
+      if @total_weight >= 300 && @engines[:engine2].enable != true
+        @engines[:engine2].turn_on()
+        @log << "Elevator: floar - #{@floar} [2-nd engine turned on]"
+      elsif @total_weight < 300 && @engines[:engine2].enable == true
+      	@engines[:engine2].turn_off()
+        @log << "Elevator: floar - #{@floar} [2-nd engine turned off]"
+      end
     end
   end
 end
 
 elevator = Elevator.new(1)
 
-elevator.add_passenger(9, 5, 23)
-elevator.add_passenger(11, 5, 23)
-elevator.add_passenger(2, 5, 23)
-elevator.add_passenger(4, 9, 13)
-elevator.add_passenger(4, 9, 13)
-elevator.add_passenger(6, 15, 43)
-elevator.add_passenger(6, 15, 43)
-elevator.add_passenger(2, 19, 43)
-elevator.add_passenger(3, 12, 43)
-elevator.add_passenger(1, 1, 43)
+elevator.add_passenger(9, 5, 60)
+elevator.add_passenger(11, 5, 58)
+elevator.add_passenger(2, 5, 76)
+elevator.add_passenger(4, 9, 90)
+elevator.add_passenger(4, 9, 112)
+elevator.add_passenger(6, 15, 92)
+elevator.add_passenger(6, 15, 67)
+elevator.add_passenger(2, 19, 55)
+elevator.add_passenger(3, 12, 98)
+elevator.add_passenger(1, 3, 52)
 
 
 #puts elevator.routes
 
-elevator.move
+elevator.start
 
 puts elevator.log
 
