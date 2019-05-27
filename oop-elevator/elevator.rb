@@ -100,6 +100,8 @@ end
 
 elevator = Elevator.new(7)
 
+elevator.add_passenger(9, 5, 23)
+elevator.add_passenger(11, 5, 23)
 elevator.add_passenger(2, 5, 23)
 elevator.add_passenger(4, 9, 13)
 elevator.add_passenger(4, 9, 13)
