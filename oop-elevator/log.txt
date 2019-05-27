@@ -1,0 +1,35 @@
+Elevator: floar - 10 [1-st engine turned on] direction DOWN
+Elevator: floar - 7 [door open]
+Elevator: floar - 7 [add 1 passengers]
+Elevator: floar - 7 [door close] 112 kg, direction DOWN
+Elevator: floar - 4 [door open]
+Elevator: floar - 4 [add 1 passengers]
+Elevator: floar - 4 [door close] 202 kg, direction DOWN
+Elevator: floar - 3 [door open]
+Elevator: floar - 3 [add 2 passengers]
+Elevator: floar - 3 [door close] 379 kg, direction DOWN
+Elevator: floar - 3 [2-nd engine turned on]
+Elevator: floar - 2 [door open]
+Elevator: floar - 2 [add 1 passengers]
+Elevator: floar - 2 [free 1 passengers]
+Elevator: floar - 2 [door close] 343 kg, direction UP
+Elevator: floar - 5 [door open]
+Elevator: floar - 5 [free 1 passengers]
+Elevator: floar - 5 [door close] 267 kg, direction UP
+Elevator: floar - 5 [2-nd engine turned off]
+Elevator: floar - 9 [door open]
+Elevator: floar - 9 [free 1 passengers]
+Elevator: floar - 9 [door close] 177 kg, direction UP
+Elevator: floar - 10 [door open]
+Elevator: floar - 10 [free 1 passengers]
+Elevator: floar - 10 [door close] 85 kg, direction UP
+Elevator: floar - 11 [door open]
+Elevator: floar - 11 [add 1 passengers]
+Elevator: floar - 11 [door close] 178 kg, direction UP
+Elevator: floar - 12 [door open]
+Elevator: floar - 12 [free 1 passengers]
+Elevator: floar - 12 [door close] 93 kg, direction DOWN
+Elevator: floar - 5 [door open]
+Elevator: floar - 5 [free 1 passengers]
+Elevator: floar - 5 [door close] 0 kg, direction JORNEY ENDS
+Elevator: floar - 5 [1-nd engine turned off]
