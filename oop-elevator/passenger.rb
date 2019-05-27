@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# the class for passengers in evevator
+# the class for passengers in elevator
 class Passenger
   attr_accessor :from
   attr_accessor :to
