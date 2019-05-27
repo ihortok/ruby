@@ -26,8 +26,7 @@ class Elevator
 
   def add_passenger(from, to, weight)
     @passengers << Passenger.new(from, to, weight);
-    @routes[:from] << from #unless @routes[:from].include?(from)
-    #@routes[:to] << to #unless @routes[:to].include?(to)
+    @routes[:from] << from unless @routes[:from].include?(from)
   end
 
   def enter_passenger()
@@ -35,11 +34,11 @@ class Elevator
     indexes = []
     @passengers.each_index do |i|
       if @passengers[i].from == @floar
-      	counter += 1
-       	@passengers_on_board << @passengers[i]
+        counter += 1
+        @passengers_on_board << @passengers[i]
         @total_weight += @passengers[i].weight
         indexes << @passengers[i]
-        @routes[:to] << @passengers[i].to
+        @routes[:to] << @passengers[i].to unless @routes[:to].include?(@passengers[i].to)
       end
     end
     unless counter.zero?
@@ -92,7 +91,7 @@ class Elevator
     #while @passengers.length > 0 || @passengers_on_board.length > 0
     while @routes[:to].length > 0 || @routes[:from].length > 0
     #while @routes[:to].length > 0 #|| @passengers_on_board.length > 0
-      @log << @routes[:to].join(', ')
+      #@log << @routes[:to].join(', ')
       @log << "elevator is at the #{floar}-st floar"
       # @passengers_on_board.each { |e| @log << e.to }
       if @routes[:from].include?(@floar) || @routes[:to].include?(@floar)
@@ -105,6 +104,10 @@ class Elevator
         end
       else
         self.set_direction()
+      end
+      if @routes[:from].length.zero? && @routes[:to].length.zero?
+      	@log << "elevator's jorney ends"
+      	break
       end
       @log << "elevator goes #{direction}"
     end
