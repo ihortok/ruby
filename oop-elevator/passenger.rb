@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# the class for passengers in evevator
 class Passenger
   attr_accessor :from
   attr_accessor :to
@@ -9,11 +12,3 @@ class Passenger
     @weight = weight
   end
 end
-
-# module NewPassenger
-#   attr_accessor :passengers_list
-
-#   def add_passenger(from, to, weight)
-#     @passengers_list << Passenger.new(from, to, weight);
-#   end
-# end
