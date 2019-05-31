@@ -9,8 +9,4 @@ class Elevator
     @computer.control_panel.move(floor)
   end
 
-  def show
-    puts @computer.floor
-  end
-
 end
