@@ -1,15 +1,16 @@
 class Elevator
-  attr_accessor :computer, :doors, :control_panel
+  attr_accessor :computer
 
-  def initialize (computer, doors)
+  def initialize (computer)
     @computer = computer
-    # @engines = engines
-    # @control_panel = control_panel
-    @doors = doors
   end
 
-  def add_passengers(num)
-    @computer.add_passengers(num)
+  def move_to_floor(floor)
+    @computer.control_panel.move(floor)
+  end
+
+  def show
+    puts @computer.floor
   end
 
 end

@@ -1,15 +1,14 @@
-load 'elevator/elevator_parts/doors.rb'
+load 'elevator/elevator_parts/control_panel.rb'
 load 'elevator/computer.rb'
 load 'elevator/elevator.rb'
 
 class ElevatorBuilder
-  attr_accessor :computer, :doors, :elevator
+  attr_accessor :elevator
 
   def initialize
-    @doors = Doors.new
-    @computer = Computer.new
-    @computer.add_doors(@doors)
-    @elevator = Elevator.new(@computer, @doors)
+    computer = Computer.new
+    computer.add_control_panel(ControlPanel.new(20))
+    @elevator = Elevator.new(computer)
   end
 
 end

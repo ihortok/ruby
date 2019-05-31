@@ -4,4 +4,6 @@ elevator_builder = ElevatorBuilder.new
 
 elevator = elevator_builder.elevator
 
-elevator.add_passengers(4)
+elevator.move_to_floor(4)
+
+elevator.show
