@@ -1,15 +1,10 @@
 class ControlPanel
 
-  attr_accessor :floors, :computer
+  attr_accessor :computer
 
-  def initialize (floors)
-    @floors = floors
-  end
-
-  def move(floor)
-    if floor.between?(1, @floors)
-      @computer.floor = floor
-    end
+  def move_to_floor(floor)
+    @computer.routes << floor
+    #puts @computer.routes
   end
 
 end
