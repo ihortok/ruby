@@ -1,6 +1,6 @@
 class Computer
 
-  attr_accessor :floor, :engines, :control_panel, :passengers_to_add, :passengers_to_free, :direction, :routes, :log
+  attr_accessor :floor, :engines, :door, :control_panel, :passengers_to_add, :passengers_to_free, :direction, :routes, :log, :speed
 
   def initialize()
     @floor = 1
@@ -10,11 +10,21 @@ class Computer
     @passengers_counter = 0
     @didection = 'UP'
     @log = []
+    @speed = 35
     @engines = {}
+    @displays = {}
   end
 
   def add_engine(key, engine)
     @engines[key] = engine
+  end
+
+  def add_display(key, display)
+    @displays[key] = display
+  end
+
+  def add_door(door)
+    @door = door
   end
 
   def add_control_panel(control_panel)
@@ -45,21 +55,32 @@ class Computer
     passengers_to_free << quantity
   end
 
+  def door_open
+    @door.condition = 'open'
+    @log << "Elevator: floor - #{@floor} [door open]"
+  end
+
   def start
-  	@engines[1].turned_on = true
+  	@door.condition = 'open'
     @passengers_counter += passengers_to_add[0]
     @passengers_counter -= passengers_to_free[0]
+    @engines[:first].turned_on = true
     set_direction()
     @log << "Elevator: floor - #{@floor} [door open]"
     @log << "Elevator: floor - #{@floor} [total person #{@passengers_counter}]"
     @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
-    if @passengers_counter > 3 && @engines[2].turned_on == false
-      @engines[2].turned_on = true
+    if @passengers_counter > 3 && @engines[:second].turned_on == false
+      @engines[:second].turned_on = true
       @log << "Elevator: floor - #{@floor} [turn on second engine]"
-    elsif @passengers_counter <= 3 && @engines[2].turned_on == true
-      @engines[2].turned_on = false
+    elsif @passengers_counter <= 3 && @engines[:second].turned_on == true
+      @engines[:second].turned_on = false
       @log << "Elevator: floor - #{@floor} [turn off second engine]"
     end
+
+    @displays[:inner].show_main(@floor, @direction)
+    @displays[:inner].show_additional(@speed, @passengers_counter)
+    @displays[:outer].show_main(@floor, @direction)
+
 
     @passengers_to_add.shift
     @passengers_to_free.shift
@@ -76,20 +97,24 @@ class Computer
    	  @log << "Elevator: floor - #{@floor} [door open]"
       @log << "Elevator: floor - #{@floor} [total person #{@passengers_counter}]"
       @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
-      if @passengers_counter > 3 && @engines[2].turned_on == false
-        @engines[2].turned_on = true
+      if @passengers_counter > 3 && @engines[:second].turned_on == false
+        @engines[:second].turned_on = true
         @log << "Elevator: floor - #{@floor} [turn on second engine]"
-      elsif @passengers_counter <= 3 && @engines[2].turned_on == true
-        @engines[2].turned_on = false
+      elsif @passengers_counter <= 3 && @engines[:second].turned_on == true
+        @engines[:second].turned_on = false
         @log << "Elevator: floor - #{@floor} [turn off second engine]"
       end
+
+      @displays[:inner].show_main(@floor, @direction)
+      @displays[:inner].show_additional(@speed, @passengers_counter)
+      @displays[:outer].show_main(@floor, @direction)
 
   	 
   	  @passengers_to_add.shift
   	  @passengers_to_free.shift
   	end
-  	puts @engines
-  	@engines[1].turned_on = false
+  	puts @door.condition
+  	@engines[:first].turned_on = false
   	puts @log
   end
 

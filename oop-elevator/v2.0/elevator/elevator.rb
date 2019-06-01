@@ -1,9 +1,11 @@
 class Elevator
-  attr_accessor :computer, :control_panel
+  attr_accessor :computer, :control_panel, :display, :door
 
-  def initialize (computer, control_panel)
+  def initialize (computer, control_panel, display, door)
     @control_panel = control_panel
     @computer = computer
+    @display = display
+    @door = door
   end
 
   def add_passengers(quantity)
