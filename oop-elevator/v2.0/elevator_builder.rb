@@ -6,7 +6,7 @@ class ElevatorBuilder
   attr_accessor :elevator
 
   def initialize
-  	cp = ControlPanel.new
+  	cp = ControlPanel.new(20)
     computer = Computer.new
     computer.add_control_panel(cp)
     @elevator = Elevator.new(computer, cp)
