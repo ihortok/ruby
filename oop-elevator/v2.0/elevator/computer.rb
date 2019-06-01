@@ -40,6 +40,7 @@ class Computer
       else @direction = 'DOWN'
       end
     end
+    @log << "Elevator: floor - #{@floor} [direction #{@direction}]"
   end
 
   def add_passengers(quantity)
@@ -56,12 +57,10 @@ class Computer
   end
 
   def count_passengers
-    if @passengers_quantity + passengers_to_add[0] - passengers_to_free[0] > 10
-      raise 'quantity of passengers shoul not be more than 10'
-    end
 
-    @passengers_quantity += passengers_to_add[0]
-    @passengers_quantity -= passengers_to_free[0]
+    @passengers_quantity += passengers_to_add[0] unless passengers_to_add[0].nil?
+    @passengers_quantity -= passengers_to_free[0] unless passengers_to_free[0].nil?
+    @log << "Elevator: floor - #{@floor} [total person #{@passengers_quantity}]"
   end
 
   def start_engine
@@ -80,9 +79,9 @@ class Computer
   	@engines[:second].turned_on = false
   end
 
-  def door_trigger
-    @door.condition = 'closed' if @door.condition == 'open'
-    @door.condition = 'open' if @door.condition == 'closed'
+  def door_control(action)
+    @door.condition = 'closed' if action == 'close'
+    @door.condition = 'open' if action == 'open'
     @log << "Elevator: floor - #{@floor} [door #{@door.condition}]"
   end
 
@@ -92,60 +91,53 @@ class Computer
     @displays[:outer].show_main(@floor, @direction)
   end
 
-  def start
-  	@door.condition = 'open'
-    @passengers_quantity += passengers_to_add[0]
-    @passengers_quantity -= passengers_to_free[0]
-    @engines[:first].turned_on = true
-    set_direction()
-    @log << "Elevator: floor - #{@floor} [door open]"
-    @log << "Elevator: floor - #{@floor} [total person #{@passengers_quantity}]"
-    @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
-    if @passengers_quantity > 3 && @engines[:second].turned_on == false
-      @engines[:second].turned_on = true
-      @log << "Elevator: floor - #{@floor} [turn on second engine]"
-    elsif @passengers_quantity <= 3 && @engines[:second].turned_on == true
-      @engines[:second].turned_on = false
-      @log << "Elevator: floor - #{@floor} [turn off second engine]"
-    end
-
-    display_data_update()
-
+  def elevator_cycle
+  	display_data_update
+    door_control('open')
+    count_passengers
+    door_control('close')
+    set_direction
+    start_engine
 
     @passengers_to_add.shift
     @passengers_to_free.shift
+  end
 
-    until @routes.empty?  	 
-
+  def start
+    elevator_cycle
+    until @routes.empty?
       @floor = @routes[0]
       @routes.shift
-      set_direction()
-
-  	  @passengers_quantity += passengers_to_add[0] unless passengers_to_add[0].nil?
-      @passengers_quantity -= passengers_to_free[0] unless passengers_to_free[0].nil?
-
-   	  @log << "Elevator: floor - #{@floor} [door open]"
-      @log << "Elevator: floor - #{@floor} [total person #{@passengers_quantity}]"
-      @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
-      if @passengers_quantity > 3 && @engines[:second].turned_on == false
-        @engines[:second].turned_on = true
-        @log << "Elevator: floor - #{@floor} [turn on second engine]"
-      elsif @passengers_quantity <= 3 && @engines[:second].turned_on == true
-        @engines[:second].turned_on = false
-        @log << "Elevator: floor - #{@floor} [turn off second engine]"
-      end
-
-      @displays[:inner].show_main(@floor, @direction)
-      @displays[:inner].show_additional(@speed, @passengers_quantity)
-      @displays[:outer].show_main(@floor, @direction)
-
-  	 
-  	  @passengers_to_add.shift
-  	  @passengers_to_free.shift
+      elevator_cycle
+      stop_engine
   	end
-  	puts @door.condition
-  	@engines[:first].turned_on = false
   	puts @log
   end
 
 end
+
+
+
+     #  set_direction()
+
+  	  # @passengers_quantity += passengers_to_add[0] unless passengers_to_add[0].nil?
+     #  @passengers_quantity -= passengers_to_free[0] unless passengers_to_free[0].nil?
+
+   	 #  @log << "Elevator: floor - #{@floor} [door open]"
+     #  @log << "Elevator: floor - #{@floor} [total person #{@passengers_quantity}]"
+     #  @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
+     #  if @passengers_quantity > 3 && @engines[:second].turned_on == false
+     #    @engines[:second].turned_on = true
+     #    @log << "Elevator: floor - #{@floor} [turn on second engine]"
+     #  elsif @passengers_quantity <= 3 && @engines[:second].turned_on == true
+     #    @engines[:second].turned_on = false
+     #    @log << "Elevator: floor - #{@floor} [turn off second engine]"
+     #  end
+
+     #  @displays[:inner].show_main(@floor, @direction)
+     #  @displays[:inner].show_additional(@speed, @passengers_quantity)
+     #  @displays[:outer].show_main(@floor, @direction)
+
+  	 
+  	  # @passengers_to_add.shift
+  	  # @passengers_to_free.shift
