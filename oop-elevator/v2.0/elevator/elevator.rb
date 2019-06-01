@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Elevator container
 class Elevator
   attr_accessor :computer, :control_panel, :display, :door
 
@@ -23,5 +26,4 @@ class Elevator
   def start()
     @computer.start
   end
-
 end

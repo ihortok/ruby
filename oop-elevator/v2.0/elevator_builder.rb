@@ -5,13 +5,14 @@ load 'elevator/elevator_parts/door.rb'
 load 'elevator/computer.rb'
 load 'elevator/elevator.rb'
 
+# Evelator builder
 class ElevatorBuilder
   attr_accessor :elevator
 
   def initialize
-  	control_panel = ControlPanel.new(20)
-  	display_inner = DisplayInner.new
-  	door = Door.new('metal')
+    control_panel = ControlPanel.new(20)
+    display_inner = DisplayInner.new
+    door = Door.new('metal')
     computer = Computer.new
     computer.add_control_panel(control_panel)
     computer.add_engine(:first, Engine.new('1 kwt'))
