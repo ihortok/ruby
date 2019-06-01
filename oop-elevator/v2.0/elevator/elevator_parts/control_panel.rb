@@ -12,7 +12,7 @@ class ControlPanel
     raise 'given froor doesn\'t exist' if floor < 0 || floor > buttons_quantity
     
     @computer.routes << floor unless @computer.routes.include?(floor) || @computer.floor == floor
-  	@computer.passengers_check
+  	@computer.check_passengers
   end
 
 end

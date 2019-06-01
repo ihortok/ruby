@@ -42,11 +42,6 @@ class Computer
     end
   end
 
-  def passengers_check
-  	@passengers_to_add << 0 if @passengers_to_add.length < @routes.length
-  	@passengers_to_free << 0 if @passengers_to_free.length < @routes.length
-  end
-
   def add_passengers(quantity)
     passengers_to_add << quantity
   end
@@ -55,13 +50,43 @@ class Computer
     passengers_to_free << quantity
   end
 
-  def door_trigger()
+  def check_passengers
+    @passengers_to_add << 0 if @passengers_to_add.length < @routes.length
+    @passengers_to_free << 0 if @passengers_to_free.length < @routes.length
+  end
+
+  def count_passengers
+    if @passengers_quantity + passengers_to_add[0] - passengers_to_free[0] > 10
+      raise 'quantity of passengers shoul not be more than 10'
+    end
+
+    @passengers_quantity += passengers_to_add[0]
+    @passengers_quantity -= passengers_to_free[0]
+  end
+
+  def start_engine
+  	@engines[:first].turned_on = true
+  	if @passengers_quantity > 3 && @engines[:second].turned_on == false
+      @engines[:second].turned_on = true
+      @log << "Elevator: floor - #{@floor} [turn on second engine]"
+    elsif @passengers_quantity <= 3 && @engines[:second].turned_on == true
+      @engines[:second].turned_on = false
+      @log << "Elevator: floor - #{@floor} [turn off second engine]"
+    end
+  end
+
+  def stop_engine
+  	@engines[:first].turned_on = false
+  	@engines[:second].turned_on = false
+  end
+
+  def door_trigger
     @door.condition = 'closed' if @door.condition == 'open'
     @door.condition = 'open' if @door.condition == 'closed'
     @log << "Elevator: floor - #{@floor} [door #{@door.condition}]"
   end
 
-  def display_data_update()
+  def display_data_update
     @displays[:inner].show_main(@floor, @direction)
     @displays[:inner].show_additional(@speed, @passengers_quantity)
     @displays[:outer].show_main(@floor, @direction)
