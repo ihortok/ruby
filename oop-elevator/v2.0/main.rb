@@ -20,4 +20,3 @@ elevator.free_passengers(2)
 
 elevator.start
 
-# puts elevator.computer.passengers_to_add;

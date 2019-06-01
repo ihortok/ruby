@@ -1,6 +1,6 @@
 class Computer
 
-  attr_accessor :floor, :control_panel, :passengers_to_add, :passengers_to_free, :direction, :routes, :log
+  attr_accessor :floor, :engines, :control_panel, :passengers_to_add, :passengers_to_free, :direction, :routes, :log
 
   def initialize()
     @floor = 1
@@ -10,6 +10,11 @@ class Computer
     @passengers_counter = 0
     @didection = 'UP'
     @log = []
+    @engines = {}
+  end
+
+  def add_engine(key, engine)
+    @engines[key] = engine
   end
 
   def add_control_panel(control_panel)
@@ -41,31 +46,29 @@ class Computer
   end
 
   def start
+  	@engines[1].turned_on = true
     @passengers_counter += passengers_to_add[0]
     @passengers_counter -= passengers_to_free[0]
     set_direction()
-
     @log << "Elevator: floor - #{@floor} [door open]"
     @log << "Elevator: floor - #{@floor} [total person #{@passengers_counter}]"
     @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
+    if @passengers_counter > 3 && @engines[2].turned_on == false
+      @engines[2].turned_on = true
+      @log << "Elevator: floor - #{@floor} [turn on second engine]"
+    elsif @passengers_counter <= 3 && @engines[2].turned_on == true
+      @engines[2].turned_on = false
+      @log << "Elevator: floor - #{@floor} [turn off second engine]"
+    end
 
     @passengers_to_add.shift
     @passengers_to_free.shift
 
-    until @routes.empty?
-  	  # puts @routes
-  	  # puts '-'
-  	  # puts @passengers_to_add
-  	  # puts '-'
-  	  # puts @passengers_to_free
-  	  # puts '---'
-
-
-  	 
+    until @routes.empty?  	 
 
       @floor = @routes[0]
-@routes.shift
-set_direction()
+      @routes.shift
+      set_direction()
 
   	  @passengers_counter += passengers_to_add[0] unless passengers_to_add[0].nil?
       @passengers_counter -= passengers_to_free[0] unless passengers_to_free[0].nil?
@@ -73,11 +76,20 @@ set_direction()
    	  @log << "Elevator: floor - #{@floor} [door open]"
       @log << "Elevator: floor - #{@floor} [total person #{@passengers_counter}]"
       @log << "Elevator: floor - #{@floor} [door closed] direction #{@direction}"
+      if @passengers_counter > 3 && @engines[2].turned_on == false
+        @engines[2].turned_on = true
+        @log << "Elevator: floor - #{@floor} [turn on second engine]"
+      elsif @passengers_counter <= 3 && @engines[2].turned_on == true
+        @engines[2].turned_on = false
+        @log << "Elevator: floor - #{@floor} [turn off second engine]"
+      end
 
   	 
   	  @passengers_to_add.shift
   	  @passengers_to_free.shift
   	end
+  	puts @engines
+  	@engines[1].turned_on = false
   	puts @log
   end
 
