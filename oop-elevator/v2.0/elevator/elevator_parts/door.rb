@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Evelator door
+# Elevator door
 class Door
   attr_accessor :material, :condition
   def initialize(material)

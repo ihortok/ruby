@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Evelator engine
+# Elevator engine
 class Engine
   attr_accessor :power, :turned_on
   def initialize(power)

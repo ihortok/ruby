@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Evelator computer
+# Elevator computer
 class Computer
   attr_accessor :floor, :engines, :door, :control_panel, :passengers_to_add, :passengers_to_free, :direction, :routes, :log, :speed
 

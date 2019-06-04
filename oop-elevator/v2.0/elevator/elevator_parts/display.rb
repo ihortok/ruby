@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Evelator display module
+# Elevator display module
 module Display
 
   def show(floor, message_key, value)
@@ -15,7 +15,7 @@ module Display
 
 end
 
-# Evelator inner display
+# Elevator inner display
 class DisplayInner
 
   include Display
@@ -35,7 +35,7 @@ class DisplayInner
   end
 end
 
-# Evelator outer display
+# Elevator outer display
 class DisplayOuter
   include Display
 end

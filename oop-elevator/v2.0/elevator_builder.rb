@@ -5,7 +5,7 @@ load 'elevator/elevator_parts/door.rb'
 load 'elevator/computer.rb'
 load 'elevator/elevator.rb'
 
-# Evelator builder
+# Elevator builder
 class ElevatorBuilder
   attr_accessor :elevator
 
