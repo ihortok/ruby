@@ -1,5 +1,4 @@
 load 'elevator_builder.rb'
-load 'elevator/elevator_parts/display.rb'
 
 elevator_builder = ElevatorBuilder.new
 
