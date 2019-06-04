@@ -34,19 +34,6 @@ class Computer
     control_panel.computer = self
   end
 
-  def set_direction
-    if @routes[0].nil?
-      @direction = 'END OF JORNEY'
-    else
-      if @routes[0] > @floor then @direction = 'UP'
-      else @direction = 'DOWN'
-      end
-    end
-    @log << "Elevator: floor - #{@floor} [direction #{@direction}]"
-    @displays[:inner].show(@floor, 'direction', @direction)
-    @displays[:outer].show(@floor, 'direction', @direction)
-  end
-
   def add_passengers(quantity)
     passengers_to_add << quantity
   end
@@ -58,6 +45,29 @@ class Computer
   def check_passengers
     @passengers_to_add << 0 if @passengers_to_add.length < @routes.length
     @passengers_to_free << 0 if @passengers_to_free.length < @routes.length
+  end
+
+  def start
+    elevator_cycle
+    until @routes.empty?
+      @routes.shift
+      elevator_cycle
+    end
+  end
+
+  private
+
+  def set_direction
+    if @routes[0].nil?
+      @direction = 'END OF JORNEY'
+    else
+      if @routes[0] > @floor then @direction = 'UP'
+      else @direction = 'DOWN'
+      end
+    end
+    @log << "Elevator: floor - #{@floor} [direction #{@direction}]"
+    @displays[:inner].show(@floor, 'direction', @direction)
+    @displays[:outer].show(@floor, 'direction', @direction)
   end
 
   def count_passengers
@@ -105,11 +115,4 @@ class Computer
     @passengers_to_free.shift
   end
 
-  def start
-    elevator_cycle
-    until @routes.empty?
-      @routes.shift
-      elevator_cycle
-    end
-  end
 end
