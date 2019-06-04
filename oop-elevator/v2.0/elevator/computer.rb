@@ -43,6 +43,8 @@ class Computer
       end
     end
     @log << "Elevator: floor - #{@floor} [direction #{@direction}]"
+    @displays[:inner].show(@floor, 'direction', @direction)
+    @displays[:outer].show(@floor, 'direction', @direction)
   end
 
   def add_passengers(quantity)
@@ -61,7 +63,8 @@ class Computer
   def count_passengers
     @passengers_quantity += passengers_to_add[0] unless passengers_to_add[0].nil?
     @passengers_quantity -= passengers_to_free[0] unless passengers_to_free[0].nil?
-    @log << "Elevator: floor - #{@floor} [total person #{@passengers_quantity}]"
+    @log << "Elevator: floor - #{@floor} [total passengers #{@passengers_quantity}]"
+    @displays[:inner].show_details(@floor, 'passengers', @passengers_quantity)
   end
 
   def start_engine
@@ -69,9 +72,11 @@ class Computer
     if @passengers_quantity > 3 && @engines[:second].turned_on == false
       @engines[:second].turned_on = true
       @log << "Elevator: floor - #{@floor} [turn on second engine]"
+      @displays[:inner].show_details(@floor, 'second_engine_on')
     elsif @passengers_quantity <= 3 && @engines[:second].turned_on == true
       @engines[:second].turned_on = false
       @log << "Elevator: floor - #{@floor} [turn off second engine]"
+      @displays[:inner].show_details(@floor, 'second_engine_off')
     end
   end
 
@@ -84,16 +89,11 @@ class Computer
     @door.condition = 'closed' if action == 'close'
     @door.condition = 'open' if action == 'open'
     @log << "Elevator: floor - #{@floor} [door #{@door.condition}]"
-  end
-
-  def display_data_update
-    @displays[:inner].show_main(@floor, @direction)
-    @displays[:inner].show_additional(@speed, @passengers_quantity)
-    @displays[:outer].show_main(@floor, @direction)
+    @displays[:inner].show(@floor, 'door', @door.condition)
+    @displays[:outer].show(@floor, 'door', @door.condition)
   end
 
   def elevator_cycle
-    display_data_update
     door_control('open')
     count_passengers
     door_control('close')
@@ -111,6 +111,5 @@ class Computer
       @routes.shift
       elevator_cycle
     end
-    puts @log
   end
 end

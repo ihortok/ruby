@@ -2,23 +2,36 @@
 
 # Evelator display module
 module Display
-  attr_accessor :floor, :direction
 
-  def show_main(floor, direction)
-    @floor = floor
-    @direction = direction
+  def show(floor, message_key, value)
+    print "Elevator: floor - #{floor} "
+    case message_key
+    when 'door'
+      puts "[door #{value}]"
+    when 'direction'
+      puts "[direction #{value}]"
+    end
   end
+
 end
 
 # Evelator inner display
 class DisplayInner
-  attr_accessor :speed, :total_weight
 
   include Display
 
-  def show_additional(speed, total_passengers)
-    @speed = speed.to_s + 'km/h'
-    @total_weight = total_passengers
+  def show_details(floor, message_key, value = nil)
+    print "Elevator: floor - #{floor} "
+    case message_key
+    when 'speed'
+      puts "[speed: #{value}]"
+    when 'passengers'
+      puts "[total passengers #{value}]"
+    when 'second_engine_on'
+      puts "[turn on second engine]"
+    when 'second_engine_off'
+      puts "[turn off second engine]"
+    end
   end
 end
 
