@@ -28,9 +28,9 @@ class DisplayInner
     when 'passengers'
       puts "[total passengers #{value}]"
     when 'second_engine_on'
-      puts "[turn on second engine]"
+      puts '[turn on second engine]'
     when 'second_engine_off'
-      puts "[turn off second engine]"
+      puts '[turn off second engine]'
     end
   end
 end

@@ -4,7 +4,7 @@
 class Elevator
   attr_accessor :computer, :control_panel, :display, :door
 
-  def initialize (computer, control_panel, display, door)
+  def initialize(computer, control_panel, display, door)
     @control_panel = control_panel
     @computer = computer
     @display = display
